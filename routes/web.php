@@ -3,7 +3,9 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPesananController;
 use App\Http\Controllers\DashboardProdukController;
+use App\Http\Controllers\DashboardSellerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PembayaranController;
@@ -34,9 +36,20 @@ Route::group(['middleware' => 'web'], function (){
         Route::get('/home', 'home')->name('home');
     });
 });
+
 Route::controller(DashboardProdukController::class)->group(function () {
     Route::get('/dashboardproduk', 'dashboardProduk')->name('produk.dashboard-produk');
 });
+
+Route::controller(DashboardPesananController::class)->group(function () {
+    Route::get('/dashboardpesanan', 'dashboardPesanan')->name('pesanan.dashboard-pesanan');
+});
+
+Route::controller(DashboardSellerController::class)->group(function () {
+    Route::get('/dashboardseller', 'dashboardSeller')->name('seller.dashboard-seller');
+});
+
+
 
 //pembeli
 Route::controller(KeranjangController::class)->group(function () {
@@ -50,6 +63,8 @@ Route::controller(PesananController::class)->group(function () {
 Route::controller(PembayaranController::class)->group(function () {
     Route::get('/pembayaran', 'pembayaran')->name('pembayaran');
 });
+
+
 
 
 //seller

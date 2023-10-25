@@ -9,9 +9,11 @@
 
             @include('layouts.dashboard.sidebar')
 
-    <div class="col">
-        @include('layouts.dashboard.navbar')
+        <div class="col">
+            @include('layouts.dashboard.navbar')
+        
         <div class="py-3">
+
             @yield('konten')
         </div>
     </div>

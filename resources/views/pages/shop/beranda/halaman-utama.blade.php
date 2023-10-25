@@ -20,8 +20,8 @@
                     <div class="p-3" style="max-width: 700px;">
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Toko Album Terpercaya</h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">WELCOME</h1>
-                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">-</a>
-                        <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">-</a>
+                        <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Register</a>
+                        <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Login</a>
                     </div>
                 </div>
             </div>
