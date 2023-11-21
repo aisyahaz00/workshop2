@@ -5,7 +5,6 @@
 </head>
 <body>
     @include('layouts.shop.navbar')
-
     <div>
         @yield('konten')
     </div>

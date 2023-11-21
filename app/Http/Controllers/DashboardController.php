@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -11,7 +11,12 @@ class DashboardController extends Controller
      */
     public function halamanUtama()
     {
-        return view('pages.dashboard.beranda.halaman-utama');
-    }
+        $produks = DB::table('produks')
+            ->groupBy('id_produk')
+            ->get();
 
+        return view('pages.dashboard.beranda.halaman-utama', [
+            'produks' => $produks,
+        ]);
+    }
 }

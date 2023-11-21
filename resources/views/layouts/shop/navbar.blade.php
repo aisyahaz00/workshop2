@@ -8,7 +8,7 @@
         <div class="col-lg-9">
             <div class="row gx-0 bg-white d-none d-lg-flex">
             </div>
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-1 p-lg-0">
                 <a href="{{ route('home') }}" class="navbar-brand d-block d-lg-none">
                     <h1 class="m-0 text-primary text-uppercase">ALMERCH</h1>
                 </a>
@@ -16,14 +16,21 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-1000"> <!-- Menambahkan kelas ml-auto di sini -->
-                        <a href="{{ route('home') }}" class="nav-item nav-link active">Beranda</a>
-                        <a href="{{ route('keranjang') }}" class="nav-item nav-link">Keranjang</a>
-                        <a href="{{ route('pesanan') }}" class="nav-item nav-link">Pesanan</a>
-                        <a href="{{ route('pembayaran') }}" class="nav-item nav-link">Pembayaran</a>
+                    <div class="navbar-nav mr-auto py-1000">
+                        <a href="{{ route('home') }}" class="nav-item nav-link{{ Request::is('/') ? ' active' : '' }}">Beranda</a>
+                        <a href="{{ route('keranjang') }}" class="nav-item nav-link{{ Request::is('keranjang') ? ' active' : '' }}">Keranjang</a>
+                        <a href="{{ route('pesanan') }}" class="nav-item nav-link{{ Request::is('pesanan') ? ' active' : '' }}">Pesanan</a>
+                        <a href="{{ route('pembayaran') }}" class="nav-item nav-link{{ Request::is('pembayaran') ? ' active' : '' }}">Pembayaran</a>
+                        
+                        @auth
+                        <div class="nav-item nav-link">
+                            test
+                        </div>
+                        @endauth
                     </div>
-                </div>
+                </div>                
             </nav>
         </div>
     </div>
 </div>
+
