@@ -33,7 +33,7 @@ class Pemesanan extends Model
      *
      * @var string|null
      */
-    public const created_at = 'tanggal_pemesanan';
+    public const CREATED_AT = 'tanggal_pemesanan';
 
     /**
      * Custom tanggal updated_at.
@@ -55,7 +55,7 @@ class Pemesanan extends Model
      */
     public function detail(): HasMany
     {
-        return $this->hasMany(PemesananDetail::class);
+        return $this->hasMany(PemesananDetail::class, 'pemesanan_id');
     }
 
     /**
@@ -71,6 +71,9 @@ class Pemesanan extends Model
      */
     public function totalTagihan(): int
     {
-        return $this->detail->reduce(fn (PemesananDetail $detail) => $detail->qty * $detail->harga_produk);
+        return $this->detail->reduce(
+            fn (int $carry, PemesananDetail $detail) => $carry + $detail->qty * $detail->harga_produk,
+            0,
+        );
     }
 }

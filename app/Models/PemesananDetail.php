@@ -28,18 +28,11 @@ class PemesananDetail extends Model
     ];
 
     /**
-     * Custom tanggal created_at.
+     * Matikan timestamp bawaan laravel.
      *
-     * @var string|null
+     * @var bool
      */
-    public const created_at = 'tanggal_dibuat';
-
-    /**
-     * Custom tanggal updated_at.
-     *
-     * @var string|null
-     */
-    public const UPDATED_AT = 'tanggal_diperbarui';
+    public $timestamps = false;
 
     /**
      * Detail data produk.

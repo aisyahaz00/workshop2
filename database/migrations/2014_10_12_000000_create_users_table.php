@@ -15,8 +15,8 @@ return new class () extends Migration {
             $table->string('nama_pengguna', 50);
             $table->string('email', 50)->unique();
             $table->string('password');
-            $table->string('no_hp_pengguna', 15)->nullable();
-            $table->string('no_rek_pengguna', 20);
+            $table->string('no_hp_pengguna', 20)->nullable();
+            $table->string('no_rek_pengguna', 50);
             $table->string('role', 20);
             $table->rememberToken();
             $table->timestamps();

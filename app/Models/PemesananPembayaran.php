@@ -31,7 +31,7 @@ class PemesananPembayaran extends Model
      *
      * @var string|null
      */
-    public const created_at = 'tanggal_dibuat';
+    public const CREATED_AT = 'tanggal_dibuat';
 
     /**
      * Custom tanggal updated_at.
