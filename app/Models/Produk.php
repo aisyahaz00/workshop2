@@ -26,7 +26,7 @@ class Produk extends Model
     ];
 
     /**
-     * Custom tanggal updated_at.
+     * Custom tanggal created_at.
      *
      * @var string|null
      */
