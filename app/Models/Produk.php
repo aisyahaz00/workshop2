@@ -17,7 +17,7 @@ class Produk extends Model
     protected $table = 'produk';
 
     /**
-     * The attributes that should be cast to native types.
+     * Casting data native types.
      *
      * @var array<string, string>
      */

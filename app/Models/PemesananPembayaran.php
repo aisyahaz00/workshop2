@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PemesananDetail extends Model
+class PemesananPembayaran extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class PemesananDetail extends Model
      *
      * @var string
      */
-    protected $table = 'pemesanan_detail';
+    protected $table = 'pemesanan_pembayaran';
 
     /**
      * Casting data native types.
@@ -23,8 +23,7 @@ class PemesananDetail extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'harga_produk' => 'integer',
-        'qty' => 'integer',
+        'total' => 'integer',
     ];
 
     /**
@@ -42,18 +41,18 @@ class PemesananDetail extends Model
     public const UPDATED_AT = 'tanggal_diperbarui';
 
     /**
-     * Detail data produk.
+     * Detail admin.
      */
-    public function produk(): BelongsTo
+    public function admin(): BelongsTo
     {
-        return $this->belongsTo(Produk::class, 'produk_id');
+        return $this->belongsTo(User::class, 'admin_id');
     }
 
     /**
-     * Detail data pemesanan.
+     * Detail pemesanan.
      */
     public function pemesanan(): BelongsTo
     {
-        return $this->belongsTo(Pemesanan::class, 'pemesanan_id');
+        return $this->belongsTo(Pemesanan::class);
     }
 }
