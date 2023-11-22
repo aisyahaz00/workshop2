@@ -15,6 +15,7 @@ return new class () extends Migration {
             $table->string('nama');
             $table->string('deskripsi');
             $table->string('gambar');
+            $table->unsignedInteger('harga');
             $table->timestamp('tanggal_dibuat')->nullable();
             $table->timestamp('tanggal_diperbarui')->nullable();
         });
