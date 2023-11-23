@@ -12,7 +12,7 @@ class Produk extends Model
     use SoftDeletes;
 
     /**
-     * The table associated with the model.
+     * Set table untuk model.
      *
      * @var string
      */

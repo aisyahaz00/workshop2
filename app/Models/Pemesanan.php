@@ -12,7 +12,7 @@ class Pemesanan extends Model
     use HasFactory;
 
     /**
-     * The table associated with the model.
+     * Set table untuk model.
      *
      * @var string
      */
