@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Pemesanan;
+use App\Models\Produk;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -11,12 +13,10 @@ class DashboardController extends Controller
      */
     public function halamanUtama()
     {
-        $produks = DB::table('produks')
-            ->groupBy('id_produk')
-            ->get();
-
         return view('pages.dashboard.beranda.halaman-utama', [
-            'produks' => $produks,
+            'total_produk' => Produk::count(),
+            'total_pemesanan' => Pemesanan::count(),
+            'total_customer' => User::where('role', 'pembeli')->count(),
         ]);
     }
 }

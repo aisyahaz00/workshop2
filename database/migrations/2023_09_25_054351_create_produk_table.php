@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->unsignedInteger('harga');
             $table->timestamp('tanggal_dibuat')->nullable();
             $table->timestamp('tanggal_diperbarui')->nullable();
+            $table->softDeletes();
         });
     }
 
