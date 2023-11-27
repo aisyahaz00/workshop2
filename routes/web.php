@@ -48,19 +48,16 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'halamanUtama')->name('dashboard.halaman-utama');
 });
 
-Route::controller(DashboardProdukController::class)->group(function () {
-    Route::get('/dashboard/produk', 'dashboardProduk')->name('produk.dashboard-produk');
-});
-Route::get('dashboard/produk/formtambah', [DashboardProdukController::class, 'formTambah'])
-    ->name('dashboard.produk.formTambah');
-Route::post('dashboard/produk/tambah', [DashboardProdukController::class, 'tambah'])
-    ->name('dashboard.produk.tambah');
-Route::post('dashboard/produk/delete', [DashboardProdukController::class, 'delete'])
-    ->name('dashboard.produk.delete');
-Route::get('dashboard/produk/form-edit', [DashboardProdukController::class, 'formEdit'])
-    ->name('dashboard.produk.form-edit');
-Route::put('dashboard/produk/{id}/edit', [DashboardProdukController::class, 'edit'])
-    ->name('dashboard.produk.edit');
+Route::prefix('dashboard/produk')
+    ->controller(DashboardProdukController::class)
+    ->group(function () {
+        Route::get('', 'dashboardProduk')->name('produk.dashboard-produk');
+        Route::get('formtambah', 'formTambah')->name('dashboard.produk.formTambah');
+        Route::post('tambah', 'tambah')->name('dashboard.produk.tambah');
+        Route::get('form-edit/{produk}', 'formEdit')->name('dashboard.produk.form-edit');
+        Route::put('edit/{produk}', 'edit')->name('dashboard.produk.edit');
+        Route::delete('delete/{produk}', 'delete')->name('dashboard.produk.hapus');
+    });
 
 Route::controller(DashboardPesananController::class)->group(function () {
     Route::get('/dashboard/pesanan', 'dashboardPesanan')->name('pesanan.dashboard-pesanan');

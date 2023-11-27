@@ -1,7 +1,8 @@
 <div class="container-fluid bg-dark px-0">
     <div class="row gx-0">
         <div class="col-lg-3 bg-dark d-none d-lg-block">
-            <a href="{{ route('home') }}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+            <a href="{{ route('home') }}"
+                class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                 <h1 class="m-0 text-primary text-uppercase">{{ config('app.name') }}</h1>
             </a>
         </div>
@@ -17,20 +18,23 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-1000">
-                        <a href="{{ route('home') }}" class="nav-item nav-link{{ Request::is('/') ? ' active' : '' }}">Beranda</a>
-                        <a href="{{ route('keranjang') }}" class="nav-item nav-link{{ Request::is('keranjang') ? ' active' : '' }}">Keranjang</a>
-                        <a href="{{ route('pesanan') }}" class="nav-item nav-link{{ Request::is('pesanan') ? ' active' : '' }}">Pesanan</a>
-                        <a href="{{ route('pembayaran') }}" class="nav-item nav-link{{ Request::is('pembayaran') ? ' active' : '' }}">Pembayaran</a>
-                        
+                        <a href="{{ route('home') }}"
+                            class="nav-item nav-link{{ Request::is('/') ? ' active' : '' }}">Beranda</a>
+                        <a href="{{ route('keranjang') }}"
+                            class="nav-item nav-link{{ Request::is('keranjang') ? ' active' : '' }}">Keranjang</a>
+                        <a href="{{ route('pesanan') }}"
+                            class="nav-item nav-link{{ Request::is('pesanan') ? ' active' : '' }}">Pesanan</a>
+                        <a href="{{ route('pembayaran') }}"
+                            class="nav-item nav-link{{ Request::is('pembayaran') ? ' active' : '' }}">Pembayaran</a>
+
                         @auth
                         <div class="nav-item nav-link">
-                            test
+                            {{ auth()->user()->nama_pengguna }}
                         </div>
                         @endauth
                     </div>
-                </div>                
+                </div>
             </nav>
         </div>
     </div>
 </div>
-
