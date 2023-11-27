@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardProdukController extends Controller
 {
     public function dashboardProduk()
     {
-        $produks = DB::table('produks')
-            ->get();
+        $semuaProduk = Produk::get();
 
         return view('pages.dashboard.produk.dashboard-produk', [
-            'produks' => $produks,
+            'semua_produk' => $semuaProduk,
         ]);
     }
 
     public function formTambah()
     {
-        $produks = DB::table('produks')->get()->map(function ($produks) {
+        $produks = Produk::get()->map(function ($produks) {
             return [
                 'label' => $produks->nama_produk,
                 'value' => $produks->id_produk,
@@ -41,7 +40,7 @@ class DashboardProdukController extends Controller
             'tanggal_rilis_produk' => 'required|date',
         ]);
 
-        DB::table('produks')->insert([
+        Produk::insert([
             'id_produk' => $validated['id_produk'],
             'nama_produk' => $validated['nama_produk'],
             'deskripsi_produk' => $validated['deskripsi_produk'],
@@ -56,34 +55,29 @@ class DashboardProdukController extends Controller
             ->with(['message' => ' Berhasil Simpan ' . $validated['nama']]);
     }
 
-    public function formEdit(int $id)
+    public function formEdit(Produk $produk)
     {
-        $produks = DB::table('produks')->get()->map(function ($produks) {
-            return [
-                'label' => $produks->nama_produk,
-                'value' => $produks->id_produk,
-            ];
-        })->toArray();
-        return view('pages.dashboard.barang.form-edit', [
-            'produks' => $produks,
+        return view('pages.dashboard.produk.form-edit', [
+            'produk' => $produk,
         ]);
     }
 
-    public function edit(Request $request, int $id)
+    public function edit(Request $request, Produk $produk)
     {
         $validated = $request->validate([
-            'nama_produk' => 'required|string|max:100',
+            'nama' => 'required|string|max:100',
+            'deskripsi' => 'required|string',
+            'harga' => 'required|integer|min:1',
         ]);
 
-        DB::table('produks')
-            ->where('id_produk', $id)
-            ->update([
-                'nama_produk' => $validated['nama_produk'],
-            ]);
+        $produk->nama = $validated['nama'];
+        $produk->deskripsi = $validated['deskripsi'];
+        $produk->harga = $validated['harga'];
+        $produk->save();
 
         return redirect()
             ->route('produk.dashboard-produk')
-            ->with(['message' => ' Edit ' . $validated['nama_produk']]);
+            ->with(['message' => ' Edit ' . $validated['nama']]);
     }
 
 
