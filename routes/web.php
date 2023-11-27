@@ -95,6 +95,10 @@ Route::controller(ShopController::class)->group(function () {
     Route::get('/', 'home')->name('home');
 });
 
+Route::controller(ShopController::class)->group(function () {
+    Route::get('/detailproduk', 'detailProduk')->name('detailProduk');
+});
+
 Route::controller(KeranjangController::class)->group(function () {
     Route::get('/keranjang', 'keranjang')->name('keranjang');
 });
@@ -130,9 +134,6 @@ Route::get('pemabayaran/form-edit', [PembayaranController::class, 'formEdit'])
     ->name('pemabayaran.form-edit');
 Route::put('pemabayaran/edit', [PembayaranController::class, 'edit'])
     ->name('pemabayaran.edit');
-
-
-
 
 
 
