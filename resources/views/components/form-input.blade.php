@@ -1,5 +1,5 @@
 <div>
-    <label for="{{$id}}" class="form-label">
+    <label for="{{}}" class="form-label">
         {{ $label }}
     </label>
 
