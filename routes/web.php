@@ -51,13 +51,19 @@ Route::controller(DashboardController::class)->group(function () {
 Route::prefix('dashboard/produk')
     ->controller(DashboardProdukController::class)
     ->group(function () {
-        Route::get('', 'dashboardProduk')->name('produk.dashboard-produk');
+        Route::get('', 'dashboardProduk')->name('dashboard.produk.list');
         Route::get('formtambah', 'formTambah')->name('dashboard.produk.formTambah');
         Route::post('tambah', 'tambah')->name('dashboard.produk.tambah');
-        Route::get('form-edit/{produk}', 'formEdit')->name('dashboard.produk.form-edit');
-        Route::put('edit/{produk}', 'edit')->name('dashboard.produk.edit');
-        Route::delete('delete/{produk}', 'delete')->name('dashboard.produk.hapus');
-        Route::post('memulihkan/{produk}', 'memulihkan')->name('dashboard.produk.memulihkan');
+        Route::get('form-edit/{produk}', 'formEdit')
+            ->withTrashed()
+            ->name('dashboard.produk.form-edit');
+        Route::put('edit/{produk}', 'edit')
+            ->withTrashed()
+            ->name('dashboard.produk.edit');
+        Route::post('memulihkan/{produk}', 'memulihkan')
+            ->withTrashed()
+            ->name('dashboard.produk.memulihkan');
+        Route::delete('hapus/{produk}', 'hapus')->name('dashboard.produk.hapus');
     });
 
 Route::prefix('dashboard/pemesanandetail')
@@ -125,25 +131,3 @@ Route::get('pemabayaran/form-edit', [PembayaranController::class, 'formEdit'])
     ->name('pemabayaran.form-edit');
 Route::put('pemabayaran/edit', [PembayaranController::class, 'edit'])
     ->name('pemabayaran.edit');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('dashboard/barang/tambah', [BarangController::class, 'formTambah'])
-    ->name('dashboard.barang.form-tambah');
-Route::post('dashboard/barang/tambah', [BarangController::class, 'tambah'])
-    ->name('dashboard.barang.tambah');

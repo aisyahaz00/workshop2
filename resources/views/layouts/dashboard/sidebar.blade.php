@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('produk.dashboard-produk') }}" class="nav-link px-0 align-middle">
+                <a href="{{ route('dashboard.produk.list') }}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Produk</span>
                 </a>
             </li>
