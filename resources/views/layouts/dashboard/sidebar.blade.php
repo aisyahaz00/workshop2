@@ -21,8 +21,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('pesanan.dashboard-pesanan')}}" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Pesanan</span></a>
+                <a href="{{route('pemesanan.dashboard-pemesanan')}}" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Pemesanan</span></a>
             </li>
             <li>
                 <a href="{{route('login')}}" class="nav-link px-0 align-middle">

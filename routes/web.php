@@ -3,8 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardPembeliController;
-use App\Http\Controllers\DashboardPesananController;
+use App\Http\Controllers\DashboardPemesananController;
+use App\Http\Controllers\DashboardPemesananDetailController;
 use App\Http\Controllers\DashboardProdukController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PembayaranController;
@@ -60,31 +60,24 @@ Route::prefix('dashboard/produk')
         Route::post('memulihkan/{produk}', 'memulihkan')->name('dashboard.produk.memulihkan');
     });
 
-Route::controller(DashboardPesananController::class)->group(function () {
-    Route::get('/dashboard/pesanan', 'dashboardPesanan')->name('pesanan.dashboard-pesanan');
-});
-Route::get('dashboard/pesanan/formtambah', [DashboardPesananController::class, 'formTambah'])
-    ->name('dashboard.pesanan.formTambah');
-Route::post('dashboard/pesanan/tambah', [DashboardPesananController::class, 'tambah'])
-    ->name('dashboard.pesanan.tambah');
-Route::post('dashboard/pesanan/delete', [DashboardPesananController::class, 'delete'])
-    ->name('dashboard.pesanan.delete');
-Route::get('dashboard/pesanan/form-edit', [DashboardPesananController::class, 'formEdit'])
-    ->name('dashboard.pesanan.form-edit');
-Route::put('dashboard/pesanan/{id}/edit', [DashboardPesananController::class, 'edit'])
-    ->name('dashboard.pesanan.edit');
+Route::prefix('dashboard/pemesanandetail')
+    ->controller(DashboardPemesananDetailController::class)
+    ->group(function () {
+        Route::get('', 'dashboardPemesananDetail')->name('detailpemesanan.dashboard-pemesanan-detail');
+        Route::get('edit/{pemesananDetail}', 'edit')->name('dashboard.pemesanan-detail.form-edit');
+        Route::put('form-edit/{pemesananDetail}', 'update')->name('dashboard.pemesanan-detail.edit');
+    });
+
+Route::prefix('dashboard/pemesanan')
+    ->controller(DashboardPemesananController::class)
+    ->group(function () {
+        Route::get('', 'dashboardPemesanan')->name('pemesanan.dashboard-pemesanan');
+        Route::get('form-edit/{pemesanan}', 'formEdit')->name('dashboard.pemesanan.form-edit');
+        Route::put('edit/{pemesanan}', 'edit')->name('dashboard.pemesanan.edit');
+    });
 
 
-Route::get('dashboard/pembeli', [PembeliController::class, 'halamanPembeli'])
-    ->name('dashboard.pembeli.dashboardPembeli');
-Route::get('dashboard/pembeli/formtambah', [PembeliController::class, 'formTambah'])
-    ->name('dashboard.pembeli.formTambah');
-Route::post('dashboard/pembeli/tambah', [PembeliController::class, 'tambah'])
-    ->name('dashboard.pembeli.tambah');
-Route::get('dashboard/pembeli/form-edit', [DashboardPembeliController::class, 'formEdit'])
-    ->name('dashboard.pembeli.form-edit');
-Route::put('dashboard/pembeli//edit', [DashboardPembeliController::class, 'edit'])
-    ->name('dashboard.pembeli.edit');
+
 
 
 
