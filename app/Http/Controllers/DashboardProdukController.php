@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class DashboardProdukController extends Controller
 {
-    public function dashboardProduk()
+    /**
+     * Tampilkan halaman list produk.
+     */
+    public function dashboardProduk(): View
     {
         $semuaProduk = Produk::get();
 
@@ -16,53 +22,55 @@ class DashboardProdukController extends Controller
         ]);
     }
 
-    public function formTambah()
+    /**
+     * Tampilkan halaman form tambah.
+     */
+    public function formTambah(): View
     {
-        $produks = Produk::get()->map(function ($produks) {
-            return [
-                'label' => $produks->nama_produk,
-                'value' => $produks->id_produk,
-            ];
-        })->toArray();
-
-        return view('pages.dashboard.produk.form-tambah', ['produks' => $produks]);
+        return view('pages.dashboard.produk.form-tambah');
     }
 
-    public function tambah(Request $request)
+    /**
+     * Simpan ke database form data yang dikirim.
+     */
+    public function tambah(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'id_produk' => 'required|exists:produk,id_produk',
-            'nama_produk' => 'required|string|max:100',
-            'deskripsi_produk' => 'required|string|max:600',
-            'harga_produk' => 'required|float',
-            'gambar_produk' => 'required|string',
-            'merek_produk' => 'required|string|max:30',
-            'tanggal_rilis_produk' => 'required|date',
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'gambar' => 'required|image',
+            'harga' => 'required|integer|min:1',
         ]);
 
-        Produk::insert([
-            'id_produk' => $validated['id_produk'],
-            'nama_produk' => $validated['nama_produk'],
-            'deskripsi_produk' => $validated['deskripsi_produk'],
-            'harga_produk' => $validated['harga_produk'],
-            'gambar_produk' =>  $validated['gambar_produk'],
-            'merek_produk' =>  $validated['merek_produk'],
-            'tanggal_rilis_produk' =>  $validated['tanggal_rilis_produk'],
-        ]);
+        $produk = new Produk();
+        $produk->nama = $validated['nama'];
+        $produk->deskripsi = $validated['deskripsi'];
+        $produk->gambar = $validated['gambar']->hashName();
+        $produk->harga = $validated['harga'];
+        $produk->save();
+
+        // simpan gambar ke storage.
+        Storage::put($produk->path(), $validated['gambar']);
 
         return redirect()
             ->route('produk.dashboard-produk')
-            ->with(['message' => ' Berhasil Simpan ' . $validated['nama']]);
+            ->with(['message' => ' Berhasil Simpan ' . $produk->nama]);
     }
 
-    public function formEdit(Produk $produk)
+    /**
+     * Tampilkan halaman form edit.
+     */
+    public function formEdit(Produk $produk): View
     {
         return view('pages.dashboard.produk.form-edit', [
             'produk' => $produk,
         ]);
     }
 
-    public function edit(Request $request, Produk $produk)
+    /**
+     * Edit produk sesuai data form yang dikirim.
+     */
+    public function edit(Request $request, Produk $produk): RedirectResponse
     {
         $validated = $request->validate([
             'nama' => 'required|string|max:100',
@@ -77,8 +85,28 @@ class DashboardProdukController extends Controller
 
         return redirect()
             ->route('produk.dashboard-produk')
-            ->with(['message' => ' Edit ' . $validated['nama']]);
+            ->with(['message' => ' Edit ' . $produk->nama]);
     }
 
+    /**
+     * Hapus produk.
+     */
+    public function hapus(Produk $produk): RedirectResponse
+    {
+        $produk->delete();
 
+        return redirect()
+            ->route('produk.dashboard.produk');
+    }
+
+    /**
+     * Memulihkan produk.
+     */
+    public function memulihkan(Produk $produk): RedirectResponse
+    {
+        $produk->restore();
+
+        return redirect()
+            ->route('produk.dashboard.produk');
+    }
 }
