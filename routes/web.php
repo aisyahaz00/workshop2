@@ -57,6 +57,7 @@ Route::prefix('dashboard/produk')
         Route::get('form-edit/{produk}', 'formEdit')->name('dashboard.produk.form-edit');
         Route::put('edit/{produk}', 'edit')->name('dashboard.produk.edit');
         Route::delete('delete/{produk}', 'delete')->name('dashboard.produk.hapus');
+        Route::post('memulihkan/{produk}', 'memulihkan')->name('dashboard.produk.memulihkan');
     });
 
 Route::controller(DashboardPesananController::class)->group(function () {

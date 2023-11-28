@@ -40,4 +40,12 @@ class Produk extends Model
      * @var string|null
      */
     public const UPDATED_AT = 'tanggal_diperbarui';
+
+    /**
+     * Dapatkan lokasi folder gambar,
+     */
+    public function path(): string
+    {
+        return 'produk/' . $this->id;
+    }
 }
