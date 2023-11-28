@@ -6,12 +6,12 @@
 
   <form action="{{ route('dashboard.produk.edit', ['produk' => $produk]) }}" method="POST">
     @method('PUT')
-    <div class="card">
+    <div class="card p-4">
       @csrf
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+      <div class="row g-3 mb-4">
         <x-form-input label="Nama Produk" name="nama" value="{{$produk->nama}}" />
         <x-form-input label="Deskripsi Produk" name="deskripsi" value="{{$produk->deskripsi}}" />
-        <x-form-input label="Harga Produk" name="harga" value="{{$produk->harga}}" />
+        <x-form-input label="Harga Produk" type="number" name="harga" value="{{$produk->harga}}" />
         {{--
         <x-form-input label="Gambar Produk" name="gambar_produk" value="{{$produk->gambar_produk}}" /> --}}
       </div>

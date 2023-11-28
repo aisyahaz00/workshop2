@@ -1,14 +1,16 @@
-<div>
-    <label for="{{}}" class="form-label">
+<div class="col">
+    <label for="{{$id}}" class="form-label">
         {{ $label }}
     </label>
 
-    <input type="{{$type}}" class="form-input @error($name) error @enderror" name="{{$name}}" value="{{$value}}"
-        placeholder="{{$placeholder}}">
+    <div class="input-group has-validation">
+        <input type="{{$type}}" class="form-control @error($name) is-invalid @enderror" name="{{$name}}"
+            value="{{$value}}" placeholder="{{$placeholder}}">
 
-    @error($name)
-    <div class="form-error">
-        {{$message}}
+        @error($name)
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
-    @enderror
 </div>
