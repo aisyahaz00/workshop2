@@ -9,10 +9,10 @@
 <table class="table">
     <thead>
         <th class="col">#</th>
-        <th class="col"> Nama Produk</th>
-        <th class="col"> Deskripsi Produk</th>
-        <th class="col"> Harga Produk</th>
-        <th class="col"> Gambar Produk</th>
+        <th class="col">Nama Produk</th>
+        <th class="col">Deskripsi Produk</th>
+        <th class="col">Harga Produk</th>
+        <th class="col">Gambar Produk</th>
         <th class="col">Status</th>
         <th class="col">Aksi</th>
     </thead>
@@ -23,7 +23,9 @@
             <td class="col">{{ $produk->nama }}</td>
             <td class="col">{{ $produk->deskripsi }}</td>
             <td class="col">{{ $produk->harga }}</td>
-            <td class="col">{{ $produk->gambar }}</td>
+            <td class="col">
+                <img src="{{$produk->gambar_url}}" style="max-width: 50px" alt="gambar">
+            </td>
             <td class="col">
                 @if ($produk->deleted_at)
                 <form action="{{route('dashboard.produk.memulihkan', ['produk' => $produk])}}" method="POST">

@@ -15,9 +15,9 @@ class DashboardProdukController extends Controller
      */
     public function dashboardProduk(): View
     {
-        $semuaProduk = Produk::get();
+        $semuaProduk = Produk::withTrashed()->get();
 
-        return view('pages.dashboard.produk.dashboard-produk', [
+        return view('pages.dashboard.produk.list', [
             'semua_produk' => $semuaProduk,
         ]);
     }
@@ -53,7 +53,7 @@ class DashboardProdukController extends Controller
         Storage::put($produk->path(), $validated['gambar']);
 
         return redirect()
-            ->route('produk.dashboard-produk')
+            ->route('dashboard.produk.list')
             ->with(['message' => ' Berhasil Simpan ' . $produk->nama]);
     }
 
@@ -84,7 +84,7 @@ class DashboardProdukController extends Controller
         $produk->save();
 
         return redirect()
-            ->route('produk.dashboard-produk')
+            ->route('dashboard.produk.list')
             ->with(['message' => ' Edit ' . $produk->nama]);
     }
 
@@ -96,7 +96,7 @@ class DashboardProdukController extends Controller
         $produk->delete();
 
         return redirect()
-            ->route('produk.dashboard.produk');
+            ->route('dashboard.produk.list');
     }
 
     /**
@@ -107,6 +107,6 @@ class DashboardProdukController extends Controller
         $produk->restore();
 
         return redirect()
-            ->route('produk.dashboard.produk');
+            ->route('dashboard.produk.list');
     }
 }

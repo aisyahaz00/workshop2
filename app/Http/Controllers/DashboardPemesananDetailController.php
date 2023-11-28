@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pemesanan;
 use App\Models\PemesananDetail;
 use App\Models\PemesananPembayaran;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardPemesananDetailController extends Controller
 {
-    public function dashboardPemesananDetail(): View
+    /**
+     * Tampilkan halaman detail pesanan.
+     */
+    public function pemesananDetail(Pemesanan $pemesanan): View
     {
-        $semuaPemesananDetail = PemesananDetail::get();
+        $pengguna = User::where('id', $pemesanan->user_id)->first();
+        $semuaPemesananDetail = PemesananDetail::where('pemesanan_id', $pemesanan->id)->get();
+        $semuaPemesananPembayaran = PemesananPembayaran::where('pemesanan_id', $pemesanan->id)->get();
 
-        return view('pages.dashboard.pemesanan-detail.dashboard-pemesanan-detail', [
+        return view('pages.dashboard.pemesanan-detail.detail', [
+            'pemesanan' => $pemesanan,
             'semua_pemesanan_detail' => $semuaPemesananDetail,
-        ]);
-    }
-
-    public function dashboardPemesananPembayaran(): View
-    {
-        $semuaPemesananPembayaran = PemesananPembayaran::get();
-
-        return view('pages.dashboard.pemesanan-detail.dashboard-pemesanan-detail', [
             'semua_pemesanan_pembayaran' => $semuaPemesananPembayaran,
+            'pengguna' => $pengguna,
         ]);
     }
 
