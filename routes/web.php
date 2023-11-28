@@ -66,12 +66,10 @@ Route::prefix('dashboard/produk')
         Route::delete('hapus/{produk}', 'hapus')->name('dashboard.produk.hapus');
     });
 
-Route::prefix('dashboard/pemesanandetail')
+Route::prefix('dashboard/pemesanan/{pemesanan}')
     ->controller(DashboardPemesananDetailController::class)
     ->group(function () {
-        Route::get('', 'dashboardPemesananDetail')->name('detailpemesanan.dashboard-pemesanan-detail');
-        Route::get('edit/{pemesananDetail}', 'edit')->name('dashboard.pemesanan-detail.form-edit');
-        Route::put('form-edit/{pemesananDetail}', 'update')->name('dashboard.pemesanan-detail.edit');
+        Route::get('', 'pemesananDetail')->name('dashboard.pemesanan.detail');
     });
 
 Route::prefix('dashboard/pemesanan')
