@@ -2,74 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
- 
+use Illuminate\Support\Facades\Auth;
+
 class KeranjangController extends Controller
 {
+    /**
+     * Display a listing of the shopping cart items for the authenticated user.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function keranjang()
     {
-    return view('pages.shop.keranjang.keranjang');
+        // Get the authenticated user's shopping cart items
+        $keranjangItems = Keranjang::with('produk')->where('user_id', Auth::id())->get();
+
+        // You can customize this view based on your requirements
+        return view('pages.shop.keranjang.list-keranjang', compact('keranjangItems'));
     }
 
-    public function create()
+    /**
+     * Update the quantity of a shopping cart item.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Keranjang  $keranjang
+     * @return \Illuminate\Http\Response
+     */
+    public function formEdit(Request $request, Keranjang $keranjang)
     {
-        // Menampilkan formulir pembuatan pemesanan
-        return view('pemesanans.create');
-    }
-
-    public function store(Request $request)
-    {
-        // Menyimpan pemesanan baru ke database
+        // Validate the request
         $request->validate([
-            'jumlah_produk_pemesanan' => 'required',
-            'tanggal_pemesanan' => 'required',
-            'sub_total_pemesanan' => 'required',
-            'id_kategori' => 'required',
-            'id_pengguna' => 'required',
-            'id_pembayaran' => 'required',
+            'qty' => 'required|integer|min:1',
         ]);
 
-        Pemesanan::create($request->all());
-
-        return redirect()->route('pemesanans.index')
-            ->with('success', 'Pemesanan berhasil dibuat.');
-    }
-
-    public function edit($id)
-    {
-        // Menampilkan formulir pengeditan pemesanan
-        $pemesanan = Pemesanan::find($id);
-        return view('pemesanans.edit', compact('pemesanan'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        // Mengupdate pemesanan
-        $request->validate([
-            'jumlah_produk_pemesanan' => 'required',
-            'tanggal_pemesanan' => 'required',
-            'sub_total_pemesanan' => 'required',
-            'id_kategori' => 'required',
-            'id_pengguna' => 'required',
-            'id_pembayaran' => 'required',
+        // Update the quantity of the shopping cart item
+        $keranjang->edit([
+            'qty' => $request->input('qty'),
         ]);
 
-        $pemesanan = Pemesanan::find($id);
-        $pemesanan->update($request->all());
-
-        return redirect()->route('pemesanans.index')
-            ->with('success', 'Pemesanan berhasil diupdate.');
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'berhasil');
     }
 
-    public function destroy($id)
+    /**
+     * Remove the specified item from the shopping cart.
+     *
+     * @param  \App\Models\Keranjang  $keranjang
+     * @return \Illuminate\Http\Response
+     */
+    public function hapus(Keranjang $keranjang)
     {
-        // Menghapus pemesanan
-        $pemesanan = Pemesanan::find($id);
-        $pemesanan->delete();
-
-        return redirect()->route('pemesanans.index')
-            ->with('success', 'Pemesanan berhasil dihapus.');
+        // Delete the shopping cart item
+        $keranjang->delete();
     }
 }
-
-

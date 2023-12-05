@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
+
 class ShopController extends Controller
 {
     /**
@@ -9,7 +11,10 @@ class ShopController extends Controller
      */
     public function home()
     {
-        return view('pages.shop.beranda.halaman-utama');
+        $produk = Produk::all();
+
+        // Pass the products to the view
+        return view('pages.shop.beranda.halaman-utama', compact('produk'));
     }
 
 }
