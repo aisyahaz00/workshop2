@@ -15,10 +15,7 @@
                 <!-- Add more details as needed -->
 
                 <!-- If you want to display information from PemesananDetail model -->
-                @if ($produk->pemesananDetail)
-                    <p><strong>Qty Terjual:</strong> {{ $produk->pemesananDetail->qty }}</p>
-                    <p><strong>Total Harga Terjual:</strong> ${{ $produk->pemesananDetail->harga_produk }}</p>
-                @endif
+                
             </div>
         </div>
     </div>

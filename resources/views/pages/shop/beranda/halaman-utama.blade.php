@@ -54,7 +54,8 @@
                         <p class="text-body mb-3">{{ $produk->deskripsi }}</p>
                         <div class="d-flex justify-content-between">
                             <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('detailProduk', ['id' => $produk->id]) }}">View Detail</a>
-                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('shop.keranjang') }}">Order</a>
+                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('tambahKeKeranjang', ['id' => $produk->id]) }}">Order</a>
+
                         </div>
                     </div>
                 </div>

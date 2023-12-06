@@ -93,9 +93,9 @@ Route::controller(ShopController::class)->group(function () {
     Route::get('/', 'home')->name('home');
 });
 
-Route::controller(DetailProdukController::class)->group(function () {
-    Route::get('/detailproduk', 'detailProduk')->name('detailProduk');
-});
+
+Route::get('/detailproduk/{id}', [DetailProdukController::class, 'detailProduk'])->name('detailProduk');
+
 
 Route::prefix('/keranjang')
     ->controller(KeranjangController::class)
@@ -110,8 +110,8 @@ Route::prefix('/checkout')
     ->controller(CheckoutController::class)
     ->group(function () {
         Route::get('', 'checkout')->name('shop.checkout.halaman-checkout');
-        Route::get('form-edit/{pemesanan}', 'formEdit')->name('shop.pemesanan.form-edit');
-        Route::put('edit/{pemesanan}', 'edit')->name('shop.pemesanan.edit');
+        Route::get('showCheckout', 'showCheckout')->name('showCheckout');
+        Route::put('processCheckou', 'processCheckou')->name('showCheckout');
     });
 
 Route::prefix('/pemesanan')
@@ -129,3 +129,5 @@ Route::prefix('/detailpemesanan')
         Route::get('pemesanan/{pemesanan}', 'tampil')->name('shop.pemesanan.list-pemesanan');
         Route::put('edit/{pemesanan}', 'edit')->name('shop.pemesanan.edit');
     });
+
+Route::post('/tambah-ke-keranjang/{id}', 'KeranjangController@tambahKeKeranjang')->name('tambahKeKeranjang');
