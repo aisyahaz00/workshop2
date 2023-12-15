@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>Hotelier - Hotel HTML Templates</title>
+<title>Almerch</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">

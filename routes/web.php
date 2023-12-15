@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPemesananController;
 use App\Http\Controllers\DashboardPemesananDetailController;
@@ -100,26 +99,17 @@ Route::get('/detailproduk/{id}', [DetailProdukController::class, 'detailProduk']
 Route::prefix('/keranjang')
     ->controller(KeranjangController::class)
     ->group(function () {
-        Route::get('', 'keranjang')->name('shop.keranjang');
-        Route::get('form-edit/{keranjang}', 'formEdit')->name('shop.keranjnag.form-edit');
-        Route::put('edit/{keranjang}', 'edit')->name('shop.keranjang.edit');
-        Route::delete('/keranjnag/{keranjang}', 'hapus')->name('shop.keranjang.hapus');
-    });
-
-Route::prefix('/checkout')
-    ->controller(CheckoutController::class)
-    ->group(function () {
-        Route::get('', 'checkout')->name('shop.checkout.halaman-checkout');
-        Route::get('showCheckout', 'showCheckout')->name('showCheckout');
-        Route::put('processCheckou', 'processCheckou')->name('showCheckout');
+        Route::get('', 'tampilkanKeranjang')->name('shop.keranjang');
+        Route::post('{produk}', 'tambahKeKeranjang')->name('shop.keranjang.tambah');
+        Route::get('{produk}', 'tampilkanCheckout')->name('shop.keranjang.checkout');
+        Route::delete('{keranjang}', 'hapusDariKeranjang')->name('shop.keranjang.hapus');
     });
 
 Route::prefix('/pemesanan')
     ->controller(PemesananController::class)
     ->group(function () {
         Route::get('', 'pemesanan')->name('shop.pemesanan');
-        Route::get('pemesanan/{pemesanan}', 'tampil')->name('shop.pemesanan.list-pemesanan');
-        Route::put('edit/{pemesanan}', 'edit')->name('shop.pemesanan.edit');
+        Route::post('/shop/tambah-pemesanan/{keranjang}', 'tambahPemesanan')->name('shop.pemesanan.tambah');
     });
 
 Route::prefix('/detailpemesanan')
@@ -129,5 +119,3 @@ Route::prefix('/detailpemesanan')
         Route::get('pemesanan/{pemesanan}', 'tampil')->name('shop.pemesanan.list-pemesanan');
         Route::put('edit/{pemesanan}', 'edit')->name('shop.pemesanan.edit');
     });
-
-Route::post('/tambah-ke-keranjang/{id}', 'KeranjangController@tambahKeKeranjang')->name('tambahKeKeranjang');

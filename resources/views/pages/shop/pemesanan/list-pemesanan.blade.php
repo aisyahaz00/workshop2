@@ -1,41 +1,30 @@
 @extends('layouts.shop.halaman-layout')
 
-
 @section('konten')
     <div class="container">
-        <h1>My Orders</h1>
+        <h1>List Pemesanan</h1>
 
-        @if ($pemesanan->isEmpty())
-            <p>Anda belum memiliki pesanan apa pun. </p>
+        @if ($pemesananList->isEmpty())
+            <p>Belum ada pemesanan.</p>
         @else
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Date</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pemesanan as $order)
-                        <tr>
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->tanggal_pemesanan->format('Y-m-d H:i:s') }}</td>
-                            <td>${{ $order->totalTagihan() }}</td>
-                            <td>{{ $order->status }}</td>
-                            <td>
-                                <a href="{{ route('pemesanan.show', $order->id) }}">View Details</a>
-                            </td>
-                        </tr>
+            <!-- Tampilkan konten pemesanan di sini -->
+            @foreach($pemesananList as $pemesanan)
+                <div class="pemesanan-item">
+                    <h3>Pemesanan {{ $pemesanan->id }}</h3>
+                    <p>Tanggal Pemesanan: {{ $pemesanan->tanggal_pemesanan }}</p>
+                    <p>Total Tagihan: Rp.{{ $pemesanan->totalTagihan() }}</p>
+
+                    <!-- Tampilkan detail pemesanan -->
+                    @foreach($pemesanan->detail as $detail)
+                        <p>{{ $detail->produk->nama }} - Qty: {{ $detail->qty }} - Subtotal: Rp.{{ $detail->subtotal() }}</p>
                     @endforeach
-                </tbody>
-            </table>
+
+               
+
+                    <!-- Tombol untuk melihat detail pemesanan -->
+                    <a href="{{ route(''dashboard.pemesanan.detail', ['pemesanan' => $pemesanan]) }}" class="btn btn-info">Detail</a>
+                </div>
+            @endforeach
         @endif
     </div>
 @endsection
-
-
-
-<script

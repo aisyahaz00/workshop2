@@ -2,36 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
 use App\Models\Pemesanan;
-use Illuminate\Support\Facades\Auth;
 
 class PemesananController extends Controller
 {
-    /**
-     * Display a listing of the user's orders.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function pemesanan()
     {
-        // Get the authenticated user's orders
-        $pemesanan = Pemesanan::with('detail')->where('user_id', Auth::id())->latest()->get();
+        // Ambil semua pemesanan
+        $pemesananList = Pemesanan::with(['user', 'produk', 'detail'])->get();
 
-        return view('pages.shop.pemesanan.list-pemesanan', compact('pemesanan'));
+        // Tampilkan view pemesanan
+        return view('pages.shop.pemesanan.list-pemesanan', compact('pemesananList'));
     }
 
-    /**
-     * Show the details of a specific order.
-     *
-     * @param  \App\Models\Pemesanan  $pemesanan
-     * @return \Illuminate\Http\Response
-     */
-    public function tampil(Pemesanan $pemesanan)
+    // buat pemesanan
+    public function tambahPemesanan(Keranjang $keranjang)
     {
-        // Make sure the order belongs to the authenticated user
-        abort_if($pemesanan->user_id != Auth::id(), 403);
+        // Buat pemesanan baru
+        $pemesanan = new Pemesanan();
+        $pemesanan->user_id = auth()->id();
+        $pemesanan->alamat = auth()->user()->alamat;
+        $pemesanan->tanggal_pemesanan = now();
+        $pemesanan->save();
 
-        return view('pages.shop.pemesanan.detail-pemesanan', compact('pemesanan'));
+        // Pindahkan produk dari keranjang ke detail pemesanan
+        $pemesanan->detail()->create([
+            'produk_id' => $keranjang->produk_id,
+            'qty' => $keranjang->qty,
+            'harga_produk' => $keranjang->produk->harga,
+        ]);
+
+        return redirect()->route('shop.pemesanan')->with('success');
     }
+
 
 }
