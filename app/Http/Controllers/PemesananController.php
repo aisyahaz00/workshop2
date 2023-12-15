@@ -24,6 +24,7 @@ class PemesananController extends Controller
         $pemesanan->user_id = auth()->id();
         $pemesanan->alamat = auth()->user()->alamat;
         $pemesanan->tanggal_pemesanan = now();
+        $pemesanan->invoice_number = Pemesanan::buatNomorInvoice(now());
         $pemesanan->save();
 
         // Pindahkan produk dari keranjang ke detail pemesanan
