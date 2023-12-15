@@ -19,7 +19,11 @@ class PemesananFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'alamat' => fake()->address(),
+            'alamat' => function (array $attributes) {
+                $user = User::find($attributes['user_id']);
+
+                return $user->alamat;
+            },
             'invoice_number' => fake()->bothify('??##-##-??###'),
             'status_pemesanan' => 'baru',
         ];
