@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -64,6 +65,21 @@ class Pemesanan extends Model
     public function pembayaran(): HasMany
     {
         return $this->hasMany(PemesananPembayaran::class, 'pemesanan_id');
+    }
+
+    /**
+     * Buat unique nomor invoice.
+     */
+    public static function buatNomorInvoice(Carbon $tanggal): string
+    {
+        $cekTotalPemesanan = Order::query()
+            ->whereBetween(
+                'pemesanan.tanggal_pemesanan',
+                [$tanggal->toImmutable()->startOfMonth(), $tanggal->toImmutable()->endOfMonth()]
+            )
+            ->count();
+
+        return now()->format('Ymd') . '-' . ($cekTotalPemesanan + 1);
     }
 
     /**
