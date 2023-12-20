@@ -49,4 +49,12 @@ class PemesananDetail extends Model
     {
         return $this->belongsTo(Pemesanan::class, 'pemesanan_id');
     }
+
+    /**
+     * Hitung sub total.
+     */
+    public function subTotal(): int
+    {
+        return $this->qty * $this->harga_produk;
+    }
 }

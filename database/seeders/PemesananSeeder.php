@@ -23,7 +23,7 @@ class PemesananSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             $pembeli = $semuaPembeli->random();
 
-            $pemesanan = Pemesanan::factory()->for($pembeli, 'owner')->create();
+            $pemesanan = Pemesanan::factory()->for($pembeli)->create();
             $jumlahProduk = random_int(1, 3);
             PemesananDetail::factory()
                 ->count($jumlahProduk)
