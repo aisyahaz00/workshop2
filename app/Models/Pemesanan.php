@@ -72,7 +72,7 @@ class Pemesanan extends Model
      */
     public static function buatNomorInvoice(Carbon $tanggal): string
     {
-        $cekTotalPemesanan = Order::query()
+        $cekTotalPemesanan = Pemesanan::query()
             ->whereBetween(
                 'pemesanan.tanggal_pemesanan',
                 [$tanggal->toImmutable()->startOfMonth(), $tanggal->toImmutable()->endOfMonth()]
