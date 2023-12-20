@@ -109,13 +109,6 @@ Route::prefix('/pemesanan')
     ->controller(PemesananController::class)
     ->group(function () {
         Route::get('', 'pemesanan')->name('shop.pemesanan');
+        Route::get('{pemesanan}', 'pemesananDetail')->name('shop.pemesanan.detail');
         Route::post('/shop/tambah-pemesanan/{keranjang}', 'tambahPemesanan')->name('shop.pemesanan.tambah');
-    });
-
-Route::prefix('/detailpemesanan')
-    ->controller(PemesananController::class)
-    ->group(function () {
-        Route::get('', 'detailPemesanan')->name('shop.detail-pemesanan');
-        Route::get('pemesanan/{pemesanan}', 'tampil')->name('shop.pemesanan.list-pemesanan');
-        Route::put('edit/{pemesanan}', 'edit')->name('shop.pemesanan.edit');
     });
