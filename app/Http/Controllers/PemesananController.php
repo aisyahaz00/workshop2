@@ -13,7 +13,7 @@ class PemesananController extends Controller
      */
     public function pemesanan()
     {
-        $pemesananList = Pemesanan::with(['user', 'produk', 'detail'])
+        $pemesananList = Pemesanan::with(['user', 'detail.produk'])
             ->where('user_id', auth()->id()) // list pemesanan user yang login
             ->get();
 
@@ -47,7 +47,8 @@ class PemesananController extends Controller
         // Pindahkan produk dari keranjang ke detail pemesanan
         $detail = new PemesananDetail();
         $detail->produk_id = $keranjang->produk_id;
-        $detail->harga_produk = $keranjang->harga_produk;
+        $detail->nama_produk = $keranjang->produk->nama;
+        $detail->harga_produk =  $keranjang->produk->harga;
         $detail->qty = $keranjang->qty;
         $pemesanan->detail()->save($detail);
 
