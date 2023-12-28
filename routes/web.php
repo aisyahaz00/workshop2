@@ -87,9 +87,10 @@ Route::prefix('dashboard/pemesanan')
 Route::prefix('dashboard/pembayaran')
     ->controller(DashboardPembayaranController::class)
     ->group(function () {
-        Route::post('/admin/pembayaran/verifikasi/{pembayaran}', [DashboardPembayaranController::class, 'verifikasiPembayaran'])
+        Route::post('/verifikasi/{pembayaran}', [DashboardPembayaranController::class, 'verifikasiPembayaran'])
             ->name('dashboard.pembayaran.verifikasi');
     });
+
 
 
 
@@ -122,6 +123,5 @@ Route::prefix('/pemesanan')
         Route::post('/shop/tambah-pemesanan/{keranjang}', 'tambahPemesanan')->name('shop.pemesanan.tambah');
     });
 
-// routes/web.php
 Route::get('/pemesanan/detail/{pemesanan}', [DetailPemesananController::class, 'detailPemesanan'])
     ->name('shop.detailPemesanan');

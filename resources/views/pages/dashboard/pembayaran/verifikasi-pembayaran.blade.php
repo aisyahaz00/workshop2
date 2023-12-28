@@ -25,7 +25,7 @@
                             <td>Rp. {{ number_format($pembayaran->total, 0, ',', '.') }}</td>
                             <td>{{ $pembayaran->tanggal_dibuat ?: 'Belum Diverifikasi' }}</td>
                             <td>
-                                <form action="{{ route('admin.pembayaran.verifikasi.submit', $pembayaran) }}" method="POST">
+                                <form action="{{ route('dashboard.pembayaran.verifikasi', $pembayaran) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">Verifikasi</button>
                                 </form>
