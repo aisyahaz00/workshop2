@@ -25,6 +25,11 @@
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Pemesanan</span></a>
             </li>
             <li>
+             <a href="{{ route('dashboard.pembayaran.verifikasi', ['pembayaran' => 1]) }}" class="nav-link px-0 align-middle">
+                    <!-- Ganti angka 1 dengan id pembayaran yang sesuai -->
+                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Pembayaran</span></a>
+                </li>
+            <li>
                 <a href="{{route('login')}}" class="nav-link px-0 align-middle">
                     <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Logout</span>
                 </a>

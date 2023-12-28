@@ -3,9 +3,11 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPembayaranController;
 use App\Http\Controllers\DashboardPemesananController;
 use App\Http\Controllers\DashboardPemesananDetailController;
 use App\Http\Controllers\DashboardProdukController;
+use App\Http\Controllers\DetailPemesananController;
 use App\Http\Controllers\DetailProdukController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\PemesananController;
@@ -82,6 +84,14 @@ Route::prefix('dashboard/pemesanan')
         Route::put('edit/{pemesanan}', 'edit')->name('dashboard.pemesanan.edit');
     });
 
+Route::prefix('dashboard/pembayaran')
+    ->controller(DashboardPembayaranController::class)
+    ->group(function () {
+        Route::post('/verifikasi/{pembayaran}', [DashboardPembayaranController::class, 'verifikasiPembayaran'])
+            ->name('dashboard.pembayaran.verifikasi');
+    });
+
+
 
 
 
@@ -112,3 +122,6 @@ Route::prefix('/pemesanan')
         Route::get('{pemesanan}', 'pemesananDetail')->name('shop.pemesanan.detail');
         Route::post('/shop/tambah-pemesanan/{keranjang}', 'tambahPemesanan')->name('shop.pemesanan.tambah');
     });
+
+Route::get('/pemesanan/detail/{pemesanan}', [DetailPemesananController::class, 'detailPemesanan'])
+    ->name('shop.detailPemesanan');
