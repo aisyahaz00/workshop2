@@ -87,8 +87,9 @@ Route::prefix('dashboard/pemesanan')
 Route::prefix('dashboard/pembayaran')
     ->controller(DashboardPembayaranController::class)
     ->group(function () {
+        Route::get('', 'dashboardPembayaran')->name('dashboard.pemesanan.pembayaran');
         Route::post('/verifikasi/{pembayaran}', [DashboardPembayaranController::class, 'verifikasiPembayaran'])
-            ->name('dashboard.pembayaran.verifikasi');
+            ->name(' dashboard.pemesanan.pembayaran.verifikasi');
     });
 
 

@@ -2,7 +2,7 @@
 
 @section('konten')
     <div class="container mt-5">
-        <h1>Verifikasi Pembayaran</h1>
+        <h1>List Pembayaran</h1>
 
         @if (session('success'))
             <div class="alert alert-success mt-3">
@@ -17,22 +17,17 @@
                     <th>ID Pemesanan</th>
                     <th>Total Pembayaran</th>
                     <th>Tanggal Dibuat</th>
-                    <th>Aksi</th>
+                    <th>Status Verifikasi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($pembayaranMenungguVerifikasi as $pembayaran)
+                @foreach ($semuaPembayaran as $pembayaran)
                     <tr>
                         <td>{{ $pembayaran->id }}</td>
                         <td>{{ $pembayaran->pemesanan_id }}</td>
                         <td>Rp. {{ number_format($pembayaran->total, 0, ',', '.') }}</td>
                         <td>{{ $pembayaran->tanggal_dibuat ?: 'Belum Diverifikasi' }}</td>
-                        <td>
-                            <form action="{{ route('dashboard.pembayaran.verifikasi', $pembayaran) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">Verifikasi</button>
-                            </form>
-                        </td>
+                        <td>{{ $pembayaran->tanggal_dibuat ? 'Terverifikasi' : 'Belum Terverifikasi' }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -7,8 +7,18 @@ use Illuminate\Http\Request;
 
 class DashboardPembayaranController extends Controller
 {
+    public function dashboardPembayaran()
+    {
+        $semuaPembayaran = PemesananPembayaran::get();
+
+        return view('pages.dashboard.pembayaran.list-pembayaran', [
+            'semuaPembayaran' => $semuaPembayaran, // Ubah variabel menjadi $semuaPembayaran
+        ]);
+    }
+
     /**
      * Menampilkan daftar pemesanan yang menunggu verifikasi pembayaran.
+     *
      */
     public function daftarVerifikasiPembayaran()
     {
