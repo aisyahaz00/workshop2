@@ -13,7 +13,9 @@ class KeranjangController extends Controller
     public function tampilkanKeranjang()
     {
         // Ambil semua item dalam keranjang
-        $keranjangItems = Keranjang::with(['produk', 'user'])->get();
+        $keranjangItems = Keranjang::with(['produk', 'user'])
+            ->where('user_id', auth()->id())
+            ->get();
 
         // Tampilkan view keranjang
         return view('pages.shop.keranjang.list-keranjang', compact('keranjangItems'));
@@ -22,7 +24,9 @@ class KeranjangController extends Controller
     // tampilanCheckOut
     public function tampilkanCheckout()
     {
-        $keranjangItems = Keranjang::with(['produk', 'user'])->get();
+        $keranjangItems = Keranjang::with(['produk', 'user'])
+            ->where('user_id', auth()->id())
+            ->get();
 
         return view('pages.shop.checkout', compact('keranjangItems'));
     }

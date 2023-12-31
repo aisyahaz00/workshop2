@@ -14,6 +14,16 @@ class Produk extends Model
     use SoftDeletes;
 
     /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::deleted(function (self $produk) {
+            Keranjang::where('produk_id', $produk->id)->delete();
+        });
+    }
+
+    /**
      * Set table untuk model.
      *
      * @var string
