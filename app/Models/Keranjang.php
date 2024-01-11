@@ -46,6 +46,7 @@ class Keranjang extends Model
      */
     public function produk(): BelongsTo
     {
-        return $this->belongsTo(Produk::class, 'produk_id');
+        return $this->belongto(Produk::class, 'produk_id')->withTrashed();
+
     }
 }
