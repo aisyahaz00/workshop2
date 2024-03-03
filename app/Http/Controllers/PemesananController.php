@@ -40,7 +40,7 @@ class PemesananController extends Controller
         // Buat pemesanan baru
         DB::transaction(function () use ($keranjang) {
             $pemesanan = new Pemesanan();
-            $pemesanan->user_id = auth()->id();
+            $pemesanan->user_id = auth()->user()->id;
             $pemesanan->alamat = auth()->user()->alamat;
             $pemesanan->tanggal_pemesanan = now();
             $pemesanan->invoice_number = Pemesanan::buatNomorInvoice(now());
